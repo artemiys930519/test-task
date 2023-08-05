@@ -1,6 +1,7 @@
 using Core.Infractructure.StateMachine;
 using Core.Infractructure.StateMachine.States;
 using Core.Logic;
+using Core.Services.ScoreService;
 using UnityEngine;
 using Zenject;
 
@@ -14,11 +15,13 @@ namespace Core.Game
 
         #endregion
 
+        private IScoreService _scoreService;
         private StateMachine _stateMachine;
 
         [Inject]
-        private void Construct(StateMachine stateMachine)
+        private void Construct(StateMachine stateMachine, IScoreService scoreService)
         {
+            _scoreService = scoreService;
             _stateMachine = stateMachine;
         }
 
@@ -34,7 +37,7 @@ namespace Core.Game
 
         private void OnEndPointEnter()
         {
-            _stateMachine.Enter<EndState, bool>(true);
+            _stateMachine.Enter<EndState, bool>(_scoreService.CurrentScore == _scoreService.MaxScore);
         }
     }
 }

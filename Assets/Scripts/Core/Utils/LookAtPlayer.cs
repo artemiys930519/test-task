@@ -1,38 +1,41 @@
 ﻿using UnityEngine;
 
-public class LookAtPlayer : MonoBehaviour
+namespace Core.Utils
 {
-    #region Inspector
-
-    [SerializeField] private float Damping;
-
-    #endregion
-
-    private Transform _player;
-
-    void Update()
+    public class LookAtPlayer : MonoBehaviour
     {
-        if (_player != null)
+        #region Inspector
+
+        [SerializeField] private float Damping;
+
+        #endregion
+
+        private Transform _player;
+
+        void Update()
         {
-            var playerPos = _player.position;
-            RotateObject(playerPos);
+            if (_player != null)
+            {
+                var playerPos = _player.position;
+                RotateObject(playerPos);
+            }
         }
-    }
 
-    public void SetPlayer(Transform player)
-    {
-        _player = player;
-    }
+        public void SetPlayer(Transform player)
+        {
+            _player = player;
+        }
 
-    private void RotateObject(Vector3 playerPos)
-    {
-        var lookPos = transform.position - playerPos;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
+        private void RotateObject(Vector3 playerPos)
+        {
+            var lookPos = transform.position - playerPos;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
 
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            rotation,
-            Time.deltaTime * Damping);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                rotation,
+                Time.deltaTime * Damping);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Core.Enums;
 using Core.UI.Panels;
+using Core.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +50,7 @@ namespace Core.Game.Units.Enemy.UI
             }
         }
 
-        public void InteractProccess(float currentValue, float maxValue)
+        public void InteractProcess(float currentValue, float maxValue)
         {
             float valueInPersent = currentValue / maxValue;
 

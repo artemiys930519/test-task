@@ -21,6 +21,8 @@ namespace Core.Infractructure.StateMachine.States
 
         public void Enter(bool state)
         {
+            Cursor.visible = true;
+            
             foreach (GameObject enemyGameObject in _sceneRepository.EnemiesGameObjects)
             {
                 if (enemyGameObject.TryGetComponent(out IPauseService enemyPauseService))

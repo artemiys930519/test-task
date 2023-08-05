@@ -22,8 +22,9 @@ namespace Installers
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
-            Container.Bind<StateMachine>().AsSingle();
             Container.DeclareSignal<RaiseEnemySignal>();
+            
+            Container.Bind<StateMachine>().AsSingle();
             Container.Bind<IRandomService>().To<Randomizer>().AsTransient();
             Container.Bind<IInputService>().To<InputService>().AsTransient();
             Container.Bind<ISceneRepository>().To<SceneRepository>().AsSingle();

@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ef77b1fa864d65a9c6f297d2761ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lookCamera: {fileID: 31622736143510078}
   _movementSystem: {fileID: 7062382491845384470}
 --- !u!114 &7062382491845384470
 MonoBehaviour:
@@ -182,10 +181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a3f6347c1f40faae460274a15b10dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _lookCamera: {fileID: 31622736143510078}
   _characterController: {fileID: 8272495907640226813}
   _speed: 5
-  _rotationSpeed: 30
+  _rotationSpeed: 0.5
 --- !u!1 &265965355859814025
 GameObject:
   m_ObjectHideFlags: 0

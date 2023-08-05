@@ -29,12 +29,14 @@ namespace Core.Infractructure.StateMachine.States
 
         public void Enter()
         {
+            Cursor.visible = false;
+
             GameObject tempPlayer = _factory.CreatePlayer();
             _sceneRepository.RegisterPlayer(tempPlayer);
 
             GameObject[] tempEnemies = _factory.CreateEnemies();
             _sceneRepository.RegisterEnemies(tempEnemies);
-            
+
             GameObject tempUI = _factory.CreateUI();
             if (tempUI.TryGetComponent(out MainPanel mainPanel))
             {

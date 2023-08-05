@@ -28,17 +28,25 @@ namespace Core.Game.Units.Enemy
 
         #endregion
 
+        #region Services
+
         private StateMachine _stateMachine;
         private IScoreService _scoreService;
         private ISceneRepository _sceneRepository;
         private IRandomService _randomService;
         private SignalBus _signalBus;
 
+        #endregion
+
+        #region PrivateVariables
+
         private Stopwatch _interactTimer = new Stopwatch();
         private bool _isInteract = false;
 
         private bool _isStopped = false;
         private Transform _currentMovingTransform;
+
+        #endregion
 
         [Inject]
         private void Construct(SignalBus signalBus, StateMachine stateMachine, IScoreService scoreService,
@@ -74,23 +82,7 @@ namespace Core.Game.Units.Enemy
             if (_isInteract)
                 return;
 
-            if (!_interactTimer.IsRunning)
-                return;
-
-            _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ProcessPanel);
-            _enemyUI.InteractProccess(_interactTimer.Elapsed.Seconds, _interactCount);
-
-            if (_interactTimer.Elapsed.Seconds >= _interactCount)
-            {
-                _enemyUI.SetDescriptionText("Обижено ходит");
-                _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ResultPanel);
-
-                _scoreService.AddScore(1);
-                _observerCollider.enabled = false;
-                _signalBus.Fire<RaiseEnemySignal>();
-
-                _isInteract = true;
-            }
+            CheckTimerProcess();
         }
 
         public void Pause()
@@ -147,6 +139,27 @@ namespace Core.Game.Units.Enemy
             _currentMovingTransform = destinationPosition;
 
             _navMeshAgent.SetDestination(_currentMovingTransform.position);
+        }
+
+        private void CheckTimerProcess()
+        {
+            if (!_interactTimer.IsRunning)
+                return;
+
+            _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ProcessPanel);
+            _enemyUI.InteractProcess(_interactTimer.Elapsed.Seconds, _interactCount);
+
+            if (_interactTimer.Elapsed.Seconds >= _interactCount)
+            {
+                _enemyUI.SetDescriptionText("Обижено ходит");
+                _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ResultPanel);
+
+                _scoreService.AddScore(1);
+                _observerCollider.enabled = false;
+                _signalBus.Fire<RaiseEnemySignal>();
+
+                _isInteract = true;
+            }
         }
 
         private void RaiseFailScenario()

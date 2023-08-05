@@ -12,6 +12,7 @@ namespace Core.UI.Panels
         public CanvasGroup CanvasGroup;
 
         #endregion
+        
         private void Awake()
         {
             if (CanvasGroup == null)
