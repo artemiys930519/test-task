@@ -10,9 +10,9 @@ namespace Core.Game.Units.Enemy.UI
     {
         #region Inspector
 
-        [SerializeField] private ViewPanel _proccessPanel;
+        [SerializeField] private ViewPanel _processPanel;
         [SerializeField] private ViewPanel _resultPanel;
-        [SerializeField] private Image _interactProccessImage;
+        [SerializeField] private Image _interactProcessImage;
         [SerializeField] private TMP_Text _descriptionText;
         [SerializeField] private LookAtPlayer _lookAtPlayer;
 
@@ -33,18 +33,18 @@ namespace Core.Game.Units.Enemy.UI
             if (enemyUIPanel == Enumenators.EnemyUIPanel.Unknown)
             {
                 _resultPanel.HidePanel();
-                _proccessPanel.HidePanel();
+                _processPanel.HidePanel();
                 return;
             }
 
-            if (enemyUIPanel == Enumenators.EnemyUIPanel.ProccessPanel)
+            if (enemyUIPanel == Enumenators.EnemyUIPanel.ProcessPanel)
             {
-                _proccessPanel.ShowPanel();
+                _processPanel.ShowPanel();
                 _resultPanel.HidePanel();
             }
             else
             {
-                _proccessPanel.HidePanel();
+                _processPanel.HidePanel();
                 _resultPanel.ShowPanel();
             }
         }
@@ -53,7 +53,7 @@ namespace Core.Game.Units.Enemy.UI
         {
             float valueInPersent = currentValue / maxValue;
 
-            _interactProccessImage.fillAmount = valueInPersent;
+            _interactProcessImage.fillAmount = valueInPersent;
         }
 
         public void SetDescriptionText(string tittle)

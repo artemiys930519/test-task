@@ -4,6 +4,7 @@ using Core.Infractructure.StateMachine;
 using Core.Services.InputService;
 using Core.Services.InteractionService;
 using Core.Services.PointRegisterService;
+using Core.Services.RandomService;
 using Core.Services.SceneRepository;
 using Core.Services.ScoreService;
 using ScriptableObjects;
@@ -23,6 +24,7 @@ namespace Installers
             SignalBusInstaller.Install(Container);
             Container.Bind<StateMachine>().AsSingle();
             Container.DeclareSignal<RaiseEnemySignal>();
+            Container.Bind<IRandomService>().To<Randomizer>().AsTransient();
             Container.Bind<IInputService>().To<InputService>().AsTransient();
             Container.Bind<ISceneRepository>().To<SceneRepository>().AsSingle();
             Container.Bind<IPointRegisterService>().To<PointRegisterService>().AsSingle();

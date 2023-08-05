@@ -1,5 +1,3 @@
-using System;
-using Core.Game.Units;
 using UnityEngine;
 
 namespace Core.Game.Systems
@@ -28,12 +26,6 @@ namespace Core.Game.Systems
             float rotationAmount = value.x * _rotationSpeed * Time.deltaTime;
             currentRotation += rotationAmount;
             transform.rotation = Quaternion.Euler(0f, currentRotation, 0f);
-            CameraRotate(value);
-        }
-
-        private void CameraRotate(Vector2 inputValue)
-        {
-            //_player.LookCamera.transform.localRotation = ;
         }
     }
 }

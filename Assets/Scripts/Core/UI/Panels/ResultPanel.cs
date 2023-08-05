@@ -7,12 +7,8 @@ namespace Core.UI.Panels
 {
     public class ResultPanel : ViewPanel
     {
-        private const string FailResult = "К сожалению вы проиграли";
-        private const string SuccesResult = "Вы успешно справились с заданием";
-
         #region Inspector
 
-        [SerializeField] private TMP_Text _resultText;
         [SerializeField] private TMP_Text _scoreValue;
 
         #endregion
@@ -33,7 +29,6 @@ namespace Core.UI.Panels
 
         private void FillResultScore()
         {
-            _resultText.text = _scoreService.CurrentScore < _scoreService.MaxScore ? FailResult : SuccesResult;
             _scoreValue.text = $"{_scoreService.CurrentScore}/{_scoreService.MaxScore}";
         }
     }

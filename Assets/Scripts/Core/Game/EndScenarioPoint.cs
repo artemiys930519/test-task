@@ -34,7 +34,7 @@ namespace Core.Game
 
         private void OnEndPointEnter()
         {
-            _stateMachine.Enter<EndState>();
+            _stateMachine.Enter<EndState, bool>(true);
         }
     }
 }

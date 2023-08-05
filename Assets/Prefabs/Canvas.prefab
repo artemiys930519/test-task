@@ -970,6 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasGroup: {fileID: 5165561635509867031}
+  _resultText: {fileID: 4849490666299231957}
   _exitButton: {fileID: 3376024410737093953}
   _restartButton: {fileID: 1683323860440438369}
   _panels:
@@ -1177,7 +1178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasGroup: {fileID: 742901320941688768}
-  _resultText: {fileID: 4849490666299231957}
   _scoreValue: {fileID: 7973419247261718201}
 --- !u!114 &8039462168191123089
 MonoBehaviour:

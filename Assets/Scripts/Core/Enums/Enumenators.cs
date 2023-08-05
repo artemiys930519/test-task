@@ -20,7 +20,7 @@ namespace Core.Enums
         public enum EnemyUIPanel
         {
             Unknown = 0,
-            ProccessPanel = 1,
+            ProcessPanel = 1,
             ResultPanel = 2
         }
     }
