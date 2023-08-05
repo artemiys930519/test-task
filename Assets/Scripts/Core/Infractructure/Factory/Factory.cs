@@ -31,22 +31,27 @@ namespace Core.Infractructure.Factory
             return _diContainer.InstantiatePrefab(_levelData.UIPrefab);
         }
 
-        public void CreateEnemies()
+        public GameObject[] CreateEnemies()
         {
             _enemiesPoints = _pointRegisterService.GetAllPointByType(Enumenators.PointType.EnemyPoint);
 
             if (_enemiesPoints == null || _enemiesPoints.Length == 0)
-                return;
+                return null;
 
             if (_levelData.EnemyPrefab == null)
-                return;
+                return null;
 
-            foreach (Transform enemyPoint in _enemiesPoints)
+            GameObject[] tempGameObjects = new GameObject[_enemiesPoints.Length];
+
+            for (int i = 0; i < _enemiesPoints.Length; i++)
             {
                 GameObject tempEnemyPrefab = _diContainer.InstantiatePrefab(_levelData.EnemyPrefab);
-                tempEnemyPrefab.transform.position = enemyPoint.transform.position;
-                tempEnemyPrefab.transform.rotation = enemyPoint.transform.rotation;
+                tempEnemyPrefab.transform.position = _enemiesPoints[i].transform.position;
+                tempEnemyPrefab.transform.rotation = _enemiesPoints[i].transform.rotation;
+                tempGameObjects[i] = tempEnemyPrefab;
             }
+
+            return tempGameObjects;
         }
 
         public GameObject CreatePlayer()
@@ -62,7 +67,7 @@ namespace Core.Infractructure.Factory
             GameObject tempPlayerPrefab = _diContainer.InstantiatePrefab(_levelData.PlayerPrefab);
             tempPlayerPrefab.transform.position = _playerPoints[0].transform.position;
             tempPlayerPrefab.transform.rotation = _playerPoints[0].transform.rotation;
-            
+
             return tempPlayerPrefab;
         }
     }

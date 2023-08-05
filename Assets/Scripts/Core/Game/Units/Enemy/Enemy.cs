@@ -6,7 +6,7 @@ using Core.Infractructure.StateMachine;
 using Core.Infractructure.StateMachine.States;
 using Core.Logic;
 using Core.Services.InteractService;
-using Core.Services.PointRegisterService;
+using Core.Services.PauseService;
 using Core.Services.RandomService;
 using Core.Services.SceneRepository;
 using Core.Services.ScoreService;
@@ -16,7 +16,7 @@ using Zenject;
 
 namespace Core.Game.Units.Enemy
 {
-    public class Enemy : MonoBehaviour, IInteractService
+    public class Enemy : MonoBehaviour, IInteractService, IPauseService
     {
         #region Inspector
 
@@ -24,6 +24,7 @@ namespace Core.Game.Units.Enemy
         [SerializeField] private EnemyUI _enemyUI;
         [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private NavMeshAgent _navMeshAgent;
+        [SerializeField] private Collider _observerCollider;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Core.Game.Units.Enemy
         private Stopwatch _interactTimer = new Stopwatch();
         private bool _isInteract = false;
 
+        private bool _isStopped = false;
         private Transform _currentMovingTransform;
 
         [Inject]
@@ -64,6 +66,9 @@ namespace Core.Game.Units.Enemy
 
         private void Update()
         {
+            if (_isStopped)
+                return;
+
             MoveRandomPosition();
 
             if (_isInteract)
@@ -81,25 +86,25 @@ namespace Core.Game.Units.Enemy
                 _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ResultPanel);
 
                 _scoreService.AddScore(1);
+                _observerCollider.enabled = false;
                 _signalBus.Fire<RaiseEnemySignal>();
 
                 _isInteract = true;
             }
         }
 
-        private void MoveRandomPosition()
+        public void Pause()
         {
-            if (Vector3.Distance(transform.position, _currentMovingTransform.position) > 0.4f)
-                Moving(_currentMovingTransform);
-            else
-                Moving(_randomService.GetRandomDestinationPoint());
+            _isStopped = true;
+            _navMeshAgent.isStopped = true;
+            if (_interactTimer.IsRunning)
+                _interactTimer.Stop();
         }
 
-        private void Moving(Transform destinationPosition)
+        public void Resume()
         {
-            _currentMovingTransform = destinationPosition;
-
-            _navMeshAgent.SetDestination(_currentMovingTransform.position);
+            _isStopped = false;
+            _navMeshAgent.isStopped = false;
         }
 
         public void StartInteract()
@@ -127,6 +132,21 @@ namespace Core.Game.Units.Enemy
             _enemyUI.ShowUIPanel(tempPanelType);
             _interactTimer.Stop();
             _interactTimer.Reset();
+        }
+
+        private void MoveRandomPosition()
+        {
+            if (Vector3.Distance(transform.position, _currentMovingTransform.position) > 0.4f)
+                Moving(_currentMovingTransform);
+            else
+                Moving(_randomService.GetRandomDestinationPoint());
+        }
+
+        private void Moving(Transform destinationPosition)
+        {
+            _currentMovingTransform = destinationPosition;
+
+            _navMeshAgent.SetDestination(_currentMovingTransform.position);
         }
 
         private void RaiseFailScenario()

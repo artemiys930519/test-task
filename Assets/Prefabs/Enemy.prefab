@@ -54,6 +54,7 @@ MonoBehaviour:
   _enemyUI: {fileID: 7943381701443689004}
   _triggerObserver: {fileID: 5317336040592612635}
   _navMeshAgent: {fileID: 4215951238396354797}
+  _observerCollider: {fileID: 3465797884270346288}
 --- !u!136 &3465797884270346288
 CapsuleCollider:
   m_ObjectHideFlags: 0

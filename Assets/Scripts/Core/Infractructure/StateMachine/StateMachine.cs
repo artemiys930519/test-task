@@ -4,7 +4,6 @@ using Core.Infractructure.Factory;
 using Core.Infractructure.StateMachine.States;
 using Core.Services.InteractionService;
 using Core.Services.SceneRepository;
-using Core.UI.Panels;
 
 namespace Core.Infractructure.StateMachine
 {

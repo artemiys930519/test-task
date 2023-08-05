@@ -31,8 +31,9 @@ namespace Core.Infractructure.StateMachine.States
         {
             GameObject tempPlayer = _factory.CreatePlayer();
             _sceneRepository.RegisterPlayer(tempPlayer);
-            
-            _factory.CreateEnemies();
+
+            GameObject[] tempEnemies = _factory.CreateEnemies();
+            _sceneRepository.RegisterEnemies(tempEnemies);
             
             GameObject tempUI = _factory.CreateUI();
             if (tempUI.TryGetComponent(out MainPanel mainPanel))
