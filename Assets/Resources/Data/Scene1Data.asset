@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dd7eb72a4cd87499f3f9f2e4bfe4d3, type: 3}
+  m_Name: Scene1Data
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 31622737042092920, guid: e87548c0f77add54f87bac8206d1d34d, type: 3}
+  EnemyPrefab: {fileID: 31622737042092920, guid: 4482d8d27cba02749bf6bb075a0952e3, type: 3}
+  UIPrefab: {fileID: 2926518852079580686, guid: 543466277d8c301428d6daaf351bfaa2, type: 3}
