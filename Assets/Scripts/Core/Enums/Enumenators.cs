@@ -16,5 +16,12 @@ namespace Core.Enums
             ScorePanel = 0,
             ResultPanel = 1
         }
+
+        public enum EnemyUIPanel
+        {
+            Unknown = 0,
+            ProccessPanel = 1,
+            ResultPanel = 2
+        }
     }
 }

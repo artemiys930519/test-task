@@ -19,7 +19,7 @@ namespace Core.Infractructure.StateMachine.States
 
         public void Enter()
         {
-            MainPanel tempMainPanel = _sceneRepository.GetMainPanel();
+            MainPanel tempMainPanel = _sceneRepository.MainPanel;
 
             if (tempMainPanel != null)
                 tempMainPanel.ShowViewPanel(Enumenators.PanelType.ResultPanel);

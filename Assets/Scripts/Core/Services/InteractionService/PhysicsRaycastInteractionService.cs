@@ -1,20 +1,39 @@
+using Core.Services.InteractService;
 using UnityEngine;
 
 namespace Core.Services.InteractionService
 {
     public class PhysicsRaycastInteractionService : IInteractionService
     {
-        Ray RayOrigin;
-        RaycastHit HitInfo;
+        private LayerMask _mask = LayerMask.GetMask("Enemy");
+        private Ray _rayOrigin;
+        private RaycastHit _hitInfo;
+        private Camera _interactCamera;
 
-        public void TryInteract()
+        public void Init()
         {
-            RayOrigin = Camera.main.ViewportPointToRay(new Vector3(0, 0, 0));
+            _interactCamera = Camera.main;
+        }
 
-            if (Physics.Raycast(RayOrigin, out HitInfo, 100f))
+        public bool TryGetInteractObject(out IInteractService interactService)
+        {
+            if (Physics.Raycast(_interactCamera.transform.position, _interactCamera.transform.forward, out _hitInfo,
+                    100.0f, _mask))
             {
-                Debug.DrawRay(RayOrigin.direction, HitInfo.point, Color.yellow);
+                Debug.DrawRay(_interactCamera.transform.position, _interactCamera.transform.forward * 100,
+                    Color.yellow);
+                if (_hitInfo.transform.TryGetComponent(out IInteractService interact))
+                {
+                    interactService = interact;
+                    return true;
+                }
+
+                interactService = null;
+                return true;
             }
+
+            interactService = null;
+            return false;
         }
     }
 }

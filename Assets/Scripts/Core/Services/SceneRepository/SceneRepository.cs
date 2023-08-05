@@ -1,19 +1,25 @@
 using Core.UI.Panels;
+using UnityEngine;
 
 namespace Core.Services.SceneRepository
 {
     public class SceneRepository : ISceneRepository
     {
-        private MainPanel _mainPanel;
+        public GameObject PlayerGameObject => _playerGameObject;
         
+        public MainPanel MainPanel => _mainPanel;
+
+        private MainPanel _mainPanel;
+        private GameObject _playerGameObject;
+
         public void RegisterMainUiPanel(MainPanel mainPanel)
         {
             _mainPanel = mainPanel;
         }
 
-        public MainPanel GetMainPanel()
+        public void RegisterPlayer(GameObject playerGameObject)
         {
-            return _mainPanel;
+            _playerGameObject = playerGameObject;
         }
-    }    
+    }
 }

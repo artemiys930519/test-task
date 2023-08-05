@@ -1,5 +1,4 @@
 ﻿using Core.Events.Model;
-using Core.Game.Player;
 using Core.Infractructure.Factory;
 using Core.Infractructure.StateMachine;
 using Core.Services.InputService;

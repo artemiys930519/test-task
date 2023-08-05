@@ -18,8 +18,8 @@ namespace Core.Infractructure.StateMachine.States
 
         public void Enter()
         {
-            _sceneRepository.GetMainPanel().ShowPanel();
-            _sceneRepository.GetMainPanel().ShowViewPanel(Enumenators.PanelType.ScorePanel);
+            _sceneRepository.MainPanel.ShowPanel();
+            _sceneRepository.MainPanel.ShowViewPanel(Enumenators.PanelType.ScorePanel);
         }
     }
 }
