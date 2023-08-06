@@ -1,5 +1,4 @@
 using Core.Services.SceneRepository;
-using ScriptableObjects;
 
 namespace Core.Services.ScoreService
 {
