@@ -1,3 +1,4 @@
+using Core.Enums;
 using Core.Infractructure.StateMachine;
 using Core.Infractructure.StateMachine.States;
 using Core.Logic;
@@ -37,7 +38,11 @@ namespace Core.Game
 
         private void OnEndPointEnter()
         {
-            _stateMachine.Enter<EndState, bool>(_scoreService.CurrentScore == _scoreService.MaxScore);
+            Enumenators.ScenarioEndType scenarioEndType = _scoreService.CurrentScore == _scoreService.MaxScore
+                ? Enumenators.ScenarioEndType.Success
+                : Enumenators.ScenarioEndType.Fail;
+            
+            _stateMachine.Enter<EndState, Enumenators.ScenarioEndType>(scenarioEndType);
         }
     }
 }

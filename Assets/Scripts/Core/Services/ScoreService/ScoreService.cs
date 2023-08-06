@@ -1,18 +1,18 @@
+using Core.Services.SceneRepository;
 using ScriptableObjects;
 
 namespace Core.Services.ScoreService
 {
     public class ScoreService : IScoreService
     {
-        private readonly int _maxScore;
-
-        public int MaxScore => _maxScore;
+        public int MaxScore => _sceneRepository.ScenarioData.MaxScore;
 
         public int CurrentScore { get; private set; }
+        private ISceneRepository _sceneRepository;
 
-        public ScoreService(ScenarioData scenarioData)
+        public ScoreService(ISceneRepository sceneRepository)
         {
-            _maxScore = scenarioData.MaxScore;
+            _sceneRepository = sceneRepository;
         }
 
         public void AddScore(int value)

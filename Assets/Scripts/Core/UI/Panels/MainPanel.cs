@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Enums;
+using Core.Services.SceneRepository;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Core.UI.Panels
 {
     public class MainPanel : ViewPanel
     {
-        private const string FailResult = "К сожалению вы проиграли";
-        private const string SuccesResult = "Вы успешно справились с заданием";
-
         #region Inspector
 
         [SerializeField] private TMP_Text _resultText;
@@ -24,7 +23,15 @@ namespace Core.UI.Panels
 
         #endregion
 
+        private ISceneRepository _sceneRepository;
+
         private ViewPanel _activeViewPanel;
+
+        [Inject]
+        private void Construct(ISceneRepository sceneRepository)
+        {
+            _sceneRepository = sceneRepository;
+        }
 
         private void OnEnable()
         {
@@ -53,14 +60,27 @@ namespace Core.UI.Panels
             _activeViewPanel.ShowPanel();
         }
 
-        public void ResultState(bool state)
+        public void ResultState(Enumenators.ScenarioEndType state)
         {
-            _resultText.text = state ? SuccesResult : FailResult;
+            string resultText = string.Empty;
+
+            if (state == Enumenators.ScenarioEndType.Catched)
+                resultText = _sceneRepository.ScenarioData.LanguageData.CatchedResult;
+            else
+                resultText = state == Enumenators.ScenarioEndType.Success 
+                    ? _sceneRepository.ScenarioData.LanguageData.SuccesResult 
+                    : _sceneRepository.ScenarioData.LanguageData.FailResult;
+
+            _resultText.text = resultText;
         }
 
         private void QuitApplication()
         {
-            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
 
         private void RestartApplication()

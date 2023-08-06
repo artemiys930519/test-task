@@ -23,5 +23,12 @@ namespace Core.Enums
             ProcessPanel = 1,
             ResultPanel = 2
         }
+
+        public enum ScenarioEndType
+        {
+            Catched = 0,
+            Success = 1,
+            Fail = 2
+        }
     }
 }

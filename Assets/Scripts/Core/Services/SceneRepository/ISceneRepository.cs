@@ -1,10 +1,12 @@
 using Core.UI.Panels;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Core.Services.SceneRepository
 {
     public interface ISceneRepository
     {
+        public ScenarioData ScenarioData { get; }
         public GameObject PlayerGameObject { get; }
         public GameObject[] EnemiesGameObjects { get; }
 

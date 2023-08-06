@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core.Infractructure.StateMachine.States
 {
-    public class EndState : IPayloadedState<bool>
+    public class EndState : IPayloadedState<Enumenators.ScenarioEndType>
     {
         private ISceneRepository _sceneRepository;
 
@@ -19,7 +19,7 @@ namespace Core.Infractructure.StateMachine.States
         {
         }
 
-        public void Enter(bool state)
+        public void Enter(Enumenators.ScenarioEndType state)
         {
             Cursor.visible = true;
             

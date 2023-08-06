@@ -45,6 +45,7 @@ namespace Core.Game.Units.Enemy
 
         private bool _isStopped = false;
         private Transform _currentMovingTransform;
+        private Vector3 _startPosition;
 
         #endregion
 
@@ -67,6 +68,11 @@ namespace Core.Game.Units.Enemy
             Moving(_randomService.GetRandomDestinationPoint());
         }
 
+        private void Start()
+        {
+            _startPosition = transform.position;
+        }
+
         private void OnDisable()
         {
             _triggerObserver.TriggerEnter -= RaiseFailScenario;
@@ -77,11 +83,10 @@ namespace Core.Game.Units.Enemy
             if (_isStopped)
                 return;
 
-            MoveRandomPosition();
-
             if (_isInteract)
                 return;
 
+            MoveRandomPosition();
             CheckTimerProcess();
         }
 
@@ -128,7 +133,7 @@ namespace Core.Game.Units.Enemy
 
         private void MoveRandomPosition()
         {
-            if (Vector3.Distance(transform.position, _currentMovingTransform.position) > 0.4f)
+            if (Vector3.Distance(transform.position, _currentMovingTransform.position) > 0.7f)
                 Moving(_currentMovingTransform);
             else
                 Moving(_randomService.GetRandomDestinationPoint());
@@ -141,6 +146,11 @@ namespace Core.Game.Units.Enemy
             _navMeshAgent.SetDestination(_currentMovingTransform.position);
         }
 
+        private void Moving(Vector3 destinationPosition)
+        {
+            _navMeshAgent.SetDestination(destinationPosition);
+        }
+
         private void CheckTimerProcess()
         {
             if (!_interactTimer.IsRunning)
@@ -151,7 +161,7 @@ namespace Core.Game.Units.Enemy
 
             if (_interactTimer.Elapsed.Seconds >= _interactCount)
             {
-                _enemyUI.SetDescriptionText("Обижено ходит");
+                _enemyUI.SetDescriptionText(_sceneRepository.ScenarioData.LanguageData.InteractedEnemyText);
                 _enemyUI.ShowUIPanel(Enumenators.EnemyUIPanel.ResultPanel);
 
                 _scoreService.AddScore(1);
@@ -159,6 +169,7 @@ namespace Core.Game.Units.Enemy
                 _signalBus.Fire<RaiseEnemySignal>();
 
                 _isInteract = true;
+                Moving(_startPosition);
             }
         }
 
@@ -167,7 +178,7 @@ namespace Core.Game.Units.Enemy
             if (_isInteract)
                 return;
 
-            _stateMachine.Enter<EndState, bool>(false);
+            _stateMachine.Enter<EndState, Enumenators.ScenarioEndType>(Enumenators.ScenarioEndType.Catched);
         }
     }
 }

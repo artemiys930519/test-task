@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7199816db93b4e118cffd3e0f4480b09, type: 3}
   m_Name: Scenario1Data
   m_EditorClassIdentifier: 
+  LanguageData: {fileID: 11400000, guid: 796f8bd6bfed5c84b9796bd93c1f8d19, type: 2}
   MaxScore: 4

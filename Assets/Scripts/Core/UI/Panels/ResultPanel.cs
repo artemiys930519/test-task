@@ -29,7 +29,7 @@ namespace Core.UI.Panels
 
         private void FillResultScore()
         {
-            _scoreValue.text = $"{_scoreService.CurrentScore}/{_scoreService.MaxScore}";
+            _scoreValue.text += $"{_scoreService.CurrentScore}/{_scoreService.MaxScore}";
         }
     }
 }

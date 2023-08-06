@@ -27,11 +27,11 @@ namespace Installers
             Container.Bind<StateMachine>().AsSingle();
             Container.Bind<IRandomService>().To<Randomizer>().AsTransient();
             Container.Bind<IInputService>().To<InputService>().AsTransient();
-            Container.Bind<ISceneRepository>().To<SceneRepository>().AsSingle();
+            Container.Bind<ISceneRepository>().To<SceneRepository>().AsSingle().WithArguments(_scenarioData);
             Container.Bind<IPointRegisterService>().To<PointRegisterService>().AsSingle();
             Container.Bind<IFactory>().To<Factory>().AsTransient().WithArguments(_levelData);
             Container.Bind<IInteractionService>().To<PhysicsRaycastInteractionService>().AsSingle();
-            Container.Bind<IScoreService>().To<ScoreService>().AsSingle().WithArguments(_scenarioData);
+            Container.Bind<IScoreService>().To<ScoreService>().AsSingle();
         }
     } 
 }
